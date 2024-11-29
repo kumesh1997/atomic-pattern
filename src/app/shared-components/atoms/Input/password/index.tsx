@@ -6,18 +6,17 @@ interface StyleProp {
     width: number;
     fontSize: number;
     padding: number;
-    borderRadius ?: '25px';
   }
   
-  interface InputProps {
+  interface propsTypes {
     children?: React.ReactNode;
     color?: string;
     onClick?: (key:any) => void;
     className?: string;
     id?: string;
-    type?: 'submit' | 'reset' | 'button' | undefined;
+    type?: 'password' | undefined;
     outline?:boolean | undefined;
-    size?: 5;
+    size?:string
     style?:CSSModule | StyleProp
     active?:boolean
     disabled?:boolean
@@ -32,14 +31,14 @@ interface StyleProp {
     close?:boolean
     block?:boolean
     placeholder?: string
-    borderRadious?: string
   }
 
-const InputField = (props: InputProps) => {
-    const { placeholder, } = props;
+const InputPasswordField = (props: propsTypes) => {
+    const { children, placeholder, type } = props;
     return (
-      <Input placeholder={placeholder} style={{borderRadius: '10px'}} {...props} />
+      <Input type={type} placeholder={placeholder}>
+      </Input>
     );
   };
   
-  export default InputField;
+  export default InputPasswordField;
