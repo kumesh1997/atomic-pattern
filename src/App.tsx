@@ -13,12 +13,14 @@ import LableAtom from './app/shared-components/atoms/Lable/CdLable';
 import InputWithLabel from './app/shared-components/molecules/InputWithLable/CdInputWithLable';
 import CdInputGroup from './app/shared-components/molecules/InputGroup/CdInputGroup';
 import { Placeholder } from 'reactstrap';
+import TableHeaderRow from './app/shared-components/molecules/Table/TableHeaderRow/TableHeaderRow';
+import LoginForm from './app/modules/login/loginForm';
 
 function App() {
 
   return (
     <div className="App">
-      <InputField placeholder="dvjksdb" />
+      {/* <InputField placeholder="dvjksdb" />
       <Btn children={"sdkjbsd"} color='primary' size='lg' />
       <InputPasswordField type='password' />
       <Icon icon={faCoffee} size='10x' color='blue'/>
@@ -33,6 +35,8 @@ function App() {
       <InputWithLabel InputComponent={InputPasswordField} label='User Name' inputProps={{placeholder:"dvjksdb", type:"text"}} labelProps={{className: '', style:{color: 'blue', float:'left'}}}/>
       <InputWithLabel InputComponent={DropDownAtom} label='User Name' inputProps={{placeholder:"dvjksdb", type:"select", options:["A", "B",]}} labelProps={{className: '', style:{color: 'blue', float:'left'}}}/>
       <CdInputGroup InputComponent={InputField} IconComponent={Icon} inputProps={{placeholder: "askhsdb", className:'border-0'}} IconProps={{ icon:faMagnifyingGlass , size:'2x', color:'gray', style:{padding:5}}} />
+      <TableHeaderRow headers={["A", "B"]} /> */}
+      <LoginForm />
     </div>
   );
 }

@@ -6,7 +6,7 @@ interface StyleProp {
     width: number;
     fontSize: number;
     padding: number;
-    borderRadius ?: '25px';
+    borderRadius ?: '5px';
   }
   
   interface PropsTypes extends InputProps {
@@ -15,7 +15,7 @@ interface StyleProp {
     onClick?: (key:any) => void;
     className?: string;
     id?: string;
-    type?: 'submit' | 'reset' | 'button' | undefined;
+    type?: 'submit' | 'reset' | 'button' | 'password' | 'text' | 'email' | undefined;
     outline?:boolean | undefined;
     size?: 5;
     style?:CSSModule | StyleProp
@@ -36,9 +36,10 @@ interface StyleProp {
   }
 
 const InputField = (props: PropsTypes) => {
-    const { placeholder, } = props;
+    const { type = 'text', placeholder, style, className } = props;
+    const inputStyle = { ...style, borderRadius: style?.borderRadius || '5px' };
     return (
-      <Input placeholder={placeholder} style={{borderRadius: '10px'}} {...props} />
+      <Input type={type} className={`text-secondary fs-6 ${className}`} placeholder={placeholder} style={inputStyle} {...props}  />
     );
   };
   

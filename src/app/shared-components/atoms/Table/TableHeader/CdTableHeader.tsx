@@ -1,14 +1,21 @@
 import { CSSProperties } from "react";
 
 type TableHeaderRowProps = {
-    headers: string[];
-    className?: string;
-    style?: CSSProperties;
-  };
-  
-// const TableHeaderAtom : React.FC<TableHeaderRowProps>  = () => {
-    
-// }
+  children?: React.ReactNode;
+  className?: string;
+  style?: CSSProperties;
+};
 
-// export default TableHeaderAtom;
+const TableHeader: React.FC<TableHeaderRowProps> = ({
+  children,
+  className,
+  style,
+}) => {
+  return (
+    <thead className={className} style={style}>
+      {children}
+    </thead>
+  );
+};
 
+export default TableHeader;

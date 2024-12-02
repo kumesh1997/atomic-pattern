@@ -3,9 +3,9 @@ import { CSSModule } from "reactstrap/types/lib/utils";
 import { ButtonProps } from "reactstrap";
 
 interface StyleProp {
-  width: number;
-  fontSize: number;
-  padding: number;
+  width?: number;
+  fontSize?: number;
+  padding?: number;
 }
 
 interface propsTypes extends ButtonProps {
