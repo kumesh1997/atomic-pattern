@@ -1,6 +1,6 @@
-import { colors } from "@mui/joy";
 import { Input } from "reactstrap";
 import { CSSModule } from "reactstrap/types/lib/utils";
+import { InputProps } from "reactstrap";
 
 interface StyleProp {
     width: number;
@@ -9,7 +9,7 @@ interface StyleProp {
     borderRadius ?: '25px';
   }
   
-  interface InputProps {
+  interface PropsTypes extends InputProps {
     children?: React.ReactNode;
     color?: string;
     onClick?: (key:any) => void;
@@ -35,7 +35,7 @@ interface StyleProp {
     borderRadious?: string
   }
 
-const InputField = (props: InputProps) => {
+const InputField = (props: PropsTypes) => {
     const { placeholder, } = props;
     return (
       <Input placeholder={placeholder} style={{borderRadius: '10px'}} {...props} />

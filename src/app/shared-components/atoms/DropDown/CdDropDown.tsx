@@ -1,5 +1,6 @@
 import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { Input } from "reactstrap";
+import { InputProps } from "reactstrap";
 
 interface StyleProp {
   width?: number;
@@ -8,8 +9,8 @@ interface StyleProp {
   size?: SizeProp
 }
 
-interface PropsTypes {
-  options: string[];
+interface PropsTypes extends InputProps {
+  options: string [];
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   id?: string;
@@ -31,11 +32,12 @@ const DropDownAtom: React.FC<PropsTypes> = (props : PropsTypes) => {
       name={name}
     >
       <option value="All">All</option>
-      {options.map((option, index) => (
-        <option key={index} value={option}>
-          {option}
-        </option>
-      ))}
+      {options &&
+        options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
     </Input>
   );
 };

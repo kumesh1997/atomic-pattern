@@ -1,4 +1,5 @@
 import { Input } from "reactstrap";
+import { InputProps } from "reactstrap";
 
 interface StyleProp {
     width: number;
@@ -6,7 +7,7 @@ interface StyleProp {
     padding: number;
   }
   
-  interface PropsTypes {
+  interface PropsTypes extends InputProps {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
     id?: string;
