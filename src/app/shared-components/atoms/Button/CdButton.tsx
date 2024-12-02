@@ -1,13 +1,14 @@
 import { Button } from "reactstrap";
 import { CSSModule } from "reactstrap/types/lib/utils";
+import { ButtonProps } from "reactstrap";
 
 interface StyleProp {
-  width: number;
-  fontSize: number;
-  padding: number;
+  width?: number;
+  fontSize?: number;
+  padding?: number;
 }
 
-interface propsTypes {
+interface propsTypes extends ButtonProps {
   children?: React.ReactNode;
   color?: string;
   onClick?: (key:any) => void;

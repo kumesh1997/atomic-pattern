@@ -1,6 +1,6 @@
-import { colors } from "@mui/joy";
 import { Input } from "reactstrap";
 import { CSSModule } from "reactstrap/types/lib/utils";
+import { InputProps } from "reactstrap";
 
 interface StyleProp {
     width: number;
@@ -8,15 +8,15 @@ interface StyleProp {
     padding: number;
   }
   
-  interface propsTypes {
+  interface propsTypes extends InputProps {
     children?: React.ReactNode;
     color?: string;
     onClick?: (key:any) => void;
     className?: string;
     id?: string;
-    type?: 'submit' | 'reset' | 'button' | undefined;
+    type?: 'password' | undefined;
     outline?:boolean | undefined;
-    size?:string
+    size?: number
     style?:CSSModule | StyleProp
     active?:boolean
     disabled?:boolean
@@ -33,12 +33,12 @@ interface StyleProp {
     placeholder?: string
   }
 
-const InputField = (props: propsTypes) => {
-    const { children, placeholder } = props;
+const InputPasswordField = (props: propsTypes) => {
+    const { children, placeholder, type } = props;
     return (
-      <Input placeholder={placeholder}>
+      <Input type={type} placeholder={placeholder}>
       </Input>
     );
   };
   
-  export default InputField;
+  export default InputPasswordField;
