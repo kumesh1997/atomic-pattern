@@ -16,6 +16,7 @@ import { Placeholder } from 'reactstrap';
 import TableHeaderRow from './app/shared-components/molecules/Table/TableHeaderRow/TableHeaderRow';
 import LoginForm from './app/modules/login/loginForm';
 import ProjectTable from './app/modules/project/projectTable';
+import Overview from './app/modules/dashboard/overview';
 
 function App() {
 
@@ -38,7 +39,8 @@ function App() {
       <CdInputGroup InputComponent={InputField} IconComponent={Icon} inputProps={{placeholder: "askhsdb", className:'border-0'}} IconProps={{ icon:faMagnifyingGlass , size:'2x', color:'gray', style:{padding:5}}} />
       <TableHeaderRow headers={["A", "B"]} /> */}
       {/* <LoginForm /> */}
-      <ProjectTable />
+      <Overview />
+      {/* <ProjectTable /> */}
     </div>
   );
 }
