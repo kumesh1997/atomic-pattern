@@ -19,8 +19,7 @@ interface PropsTypes extends InputProps {
   name?: string;
 }
 
-const DropDownAtom: React.FC<PropsTypes> = (props : PropsTypes) => {
-    const { className, id, onChange, style, value, options, name } = props;
+const DropDownAtom: React.FC<PropsTypes> = ({ className, id, onChange, style, value, options, name }) => {
   return (
     <Input
       type="select"

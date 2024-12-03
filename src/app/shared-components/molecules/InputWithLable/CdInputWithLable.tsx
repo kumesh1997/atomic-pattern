@@ -6,7 +6,9 @@ import { InputProps } from 'reactstrap';
 interface PropsTypes extends InputProps {
     label: string;
     InputComponent: React.FC<any>;
+    IconComponent?: React.FC<any>;
     id?: string;
+    options?: string[];
     inputPlaceHolder?: string;
     labelProps?: {
       className?: string;
@@ -14,11 +16,11 @@ interface PropsTypes extends InputProps {
     };
   }
 
-  const InputWithLabel: React.FC<PropsTypes> = ({ label, InputComponent, labelProps,inputPlaceHolder, id, ...props }) => {
+  const InputWithLabel: React.FC<PropsTypes> = ({ label, InputComponent, labelProps,inputPlaceHolder, id, IconComponent, options, ...props }) => {
     return (
       <FormGroup>
         <LableAtom htmlFor={id} {...labelProps} children={label} />
-        <InputComponent placeholder={inputPlaceHolder} {...props} />
+        <InputComponent placeholder={inputPlaceHolder} {...props} options={options? options : ""} />
       </FormGroup>
     );
   };

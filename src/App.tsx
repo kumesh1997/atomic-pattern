@@ -15,6 +15,7 @@ import CdInputGroup from './app/shared-components/molecules/InputGroup/CdInputGr
 import { Placeholder } from 'reactstrap';
 import TableHeaderRow from './app/shared-components/molecules/Table/TableHeaderRow/TableHeaderRow';
 import LoginForm from './app/modules/login/loginForm';
+import ProjectTable from './app/modules/project/projectTable';
 
 function App() {
 
@@ -36,7 +37,8 @@ function App() {
       <InputWithLabel InputComponent={DropDownAtom} label='User Name' inputProps={{placeholder:"dvjksdb", type:"select", options:["A", "B",]}} labelProps={{className: '', style:{color: 'blue', float:'left'}}}/>
       <CdInputGroup InputComponent={InputField} IconComponent={Icon} inputProps={{placeholder: "askhsdb", className:'border-0'}} IconProps={{ icon:faMagnifyingGlass , size:'2x', color:'gray', style:{padding:5}}} />
       <TableHeaderRow headers={["A", "B"]} /> */}
-      <LoginForm />
+      {/* <LoginForm /> */}
+      <ProjectTable />
     </div>
   );
 }
