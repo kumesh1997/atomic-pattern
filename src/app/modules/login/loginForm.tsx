@@ -9,8 +9,45 @@ import Btn from "../../shared-components/atoms/Button/CdButton";
 import Typography from "../../shared-components/atoms/Typography/Typography";
 import H6 from "../../shared-components/atoms/Headings/H6Element";
 import H3 from "../../shared-components/atoms/Headings/H3Element";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { login } from "../../store/reducers/users.slice";
+import { AppDispatch } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.users);
+
+  interface userType{
+    email: string
+    password: string
+  }
+
+  const initialFormData : userType = {
+    email: '',
+    password: ''
+  }
+
+  const handleLogin = () => {
+    const userEmail = initialFormData.email;
+    const userPassword = initialFormData.password;
+    if( userEmail && userPassword ){
+      console.log('no user data')
+    }
+    dispatch(login({email: 'tharindukumesh09@gmail.com' , password: '1234' }))
+    .unwrap()
+        .then(() => {
+          navigate('/dashboard'); // Navigate on successful login
+        })
+        .catch((error) => {
+          console.error('Login failed:', error);
+        });
+   
+  };
+
   return (
     <Row>
       <Col md style={{
@@ -31,6 +68,9 @@ const LoginForm = () => {
               </Container>
               <Form>
                 <InputWithLabel
+                  id="username"
+                  // value={initialFormData.email}
+                  onChange={(e) => initialFormData.email= e.target.value }
                   InputComponent={InputField}
                   label="User Name"
                   inputProps={{
@@ -43,6 +83,9 @@ const LoginForm = () => {
                   }}
                 />
                 <InputWithLabel
+                  id="password"
+                  // value={initialFormData.password}
+                  onChange={(e) => initialFormData.password= e.target.value }
                   InputComponent={InputPasswordField}
                   inputPlaceHolder="Enter your Password"
                   label="Password"
@@ -60,6 +103,7 @@ const LoginForm = () => {
                   outline
                   size="lg"
                   className="mt-5"
+                  onClick={handleLogin}
                 />
                 <Typography
                   children={"Forgot your username or password?"}
