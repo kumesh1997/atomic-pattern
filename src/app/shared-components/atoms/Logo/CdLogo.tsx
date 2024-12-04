@@ -9,7 +9,8 @@ interface StyleProp {
 interface propsTypes{
     src: string;
     alt?: string;
-    style? : StyleProp
+    style? : StyleProp;
+    className: string;
 }
 
 const Logo = (props : propsTypes) => {
