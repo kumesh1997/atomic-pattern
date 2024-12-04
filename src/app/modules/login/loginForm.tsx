@@ -19,11 +19,12 @@ const LoginForm = () => {
       className="container-fluid bg-cover bg-center min-vh-100 no-repeat-bg">
         <CdCard className="rounded-3 col-lg-4 col-md-6 col-sm-6 mx-auto mt-5 ">
           <CdCardBody>
-            <Container>
-              <Container className="mb-5">
+            <Row>
+              <Container className="mb-5 d-flex flex-column justify-content-center align-items-center text-center">
                 <Logo
                   src="/assets/images/user.png"
                   style={{ width: 150, height: 150 }}
+                  className="align-content-center"
                 />
                 <H3 children="Login to Access Department Dashboard" />
                 <H6 children="Login below to access your department dashboard." />
@@ -65,7 +66,7 @@ const LoginForm = () => {
                   className="mt-3 text-start"
                 />
               </Form>
-            </Container>
+            </Row>
           </CdCardBody>
         </CdCard>
       </Col>
