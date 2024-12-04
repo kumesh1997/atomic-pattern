@@ -1,11 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import globalAppConfig from '../../config/global-app-config';
+
 
 type Project = {
-    id: number;
-    name: string;
-    // Need to add other necessary fields
-  };
+  projectId: number;
+  name: string;
+  createdBy: string;
+  createdDate: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+};
 
   type ProjectsState = {
     projects: Project[];
@@ -20,9 +26,10 @@ type Project = {
   export const fetchProjects = createAsyncThunk(
     'projects/fetchProjects',
     async (_, thunkAPI) => {
+      console.log("fetch project called")
       try {
-        const response = await axios.get('/api/projects');
-        return response.data;
+        const response = await axios.get(`${globalAppConfig.baseApiUrl}/projects/paginated`);
+        return response.data.data;
       } catch (error) {
         return thunkAPI.rejectWithValue('Failed to fetch projects');
       }

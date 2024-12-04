@@ -9,8 +9,20 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Btn from "../../shared-components/atoms/Button/CdButton";
 import Date from "../../shared-components/atoms/Date/CdDate";
 import DataTable from "../../shared-components/organisms/Table/DataTable";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { fetchProjects } from "../../store/reducers/projects.slice";
 
 const ProjectTable = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+  const projects = useSelector((state: RootState) => state.projects);
+
+  useEffect(() => {
+    dispatch(fetchProjects());
+  }, []);
+
   return (
     <Container className="container vh-100 vw-100 rounded bg-gray">
       <Row className=" row rounded  p-2">
