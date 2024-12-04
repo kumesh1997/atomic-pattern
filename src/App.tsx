@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import renderRoutes from './app/config/routings/RenderRoutes';
 import { appRoutes } from './app/config/routings/routesConfig';
+import { Provider } from 'react-redux';
 import InputField from './app/shared-components/atoms/Input/CdInputField';
 import Btn from './app/shared-components/atoms/Button/CdButton';
 import InputPasswordField from './app/shared-components/atoms/Input/password/CdPassword';
