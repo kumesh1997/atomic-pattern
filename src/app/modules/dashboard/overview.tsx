@@ -3,8 +3,25 @@ import Typography from "../../shared-components/atoms/Typography/Typography";
 import Btn from "../../shared-components/atoms/Button/CdButton";
 import CdCard from "../../shared-components/atoms/Card/CdCard";
 import CdCardBody from "../../shared-components/atoms/Card/CardBody";
+import ChartAtom from "../../shared-components/atoms/Chart/Chart";
 
 const Overview = () => {
+  const chartOptions = {
+    chart: {
+      id: "basic-bar",
+    },
+    xaxis: {
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    },
+  };
+
+  const chartSeries = [
+    {
+      name: "Sales",
+      data: [30, 40, 45, 50, 49, 60, 70],
+    },
+  ];
+
   return (
     <Container>
       <Row className="row">
@@ -18,33 +35,46 @@ const Overview = () => {
           <Col className="rounded col-lg-8">
             <CdCard>
               <CdCardBody>
-                <Col className="col-lg-6">
-                  <Typography
-                    children={"Current Projects"}
-                    className="w-auto me-3 fs-5 fw-semibold d-flex text-start"
-                  />
-                  <Typography
-                    children={
-                      " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, provident eaque libero minima nam odio ipsum ullam alias"
-                    }
-                    className=" text-start justify-content-center"
-                  />
-                  <Row>
-                    <Col>
-                      <Btn
-                        block
-                        size="sm"
-                        color="primary"
-                        outline
-                        children={"View all Projects"}
-                      />
-                    </Col>
-                    <Col>
-                      <Btn block size="sm" children={"Create a New Projects"} />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col className="col-lg-2"></Col>
+                <Row>
+                  <Col className="col-lg-6">
+                    <Typography
+                      children={"Current Projects"}
+                      className="w-auto me-3 fs-5 fw-semibold d-flex text-start"
+                    />
+                    <Typography
+                      children={
+                        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, provident eaque libero minima nam odio ipsum ullam alias"
+                      }
+                      className=" text-start justify-content-center"
+                    />
+                    <Row>
+                      <Col>
+                        <Btn
+                          block
+                          size="sm"
+                          color="primary"
+                          outline
+                          children={"View all Projects"}
+                        />
+                      </Col>
+                      <Col>
+                        <Btn
+                          block
+                          size="sm"
+                          children={"Create a New Projects"}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col className="col-lg-6">
+                    <ChartAtom
+                      title={"Chart"}
+                      chartOptions={chartOptions}
+                      chartSeries={chartSeries}
+                      chartType={"line"}
+                    />
+                  </Col>
+                </Row>
               </CdCardBody>
             </CdCard>
           </Col>
@@ -97,7 +127,7 @@ const Overview = () => {
                         children={
                           " Lorem, ipsum dolor sit amet consectetur adipisicing."
                         }
-                          className=" text-start"
+                        className=" text-start"
                       />
                     </Col>
                     <Col>
