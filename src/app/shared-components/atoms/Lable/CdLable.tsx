@@ -1,20 +1,42 @@
-import { Label } from 'reactstrap';
+import { CSSProperties } from "react";
+import { Label } from "reactstrap";
 
-interface PropsTypes {
-    htmlFor?: string;
-    className?: string;
-    style?: React.CSSProperties;
-    children?: React.ReactNode;
-  }
+type LabelProps = {
+  id: string;
+  hidden?: boolean;
+  check?: boolean;
+  size?: "sm" | "lg";
+  children: string;
+  style?: CSSProperties;
+  required?: boolean;
+  className?: string;
+};
 
-const LableAtom : React.FC<PropsTypes>  = (props : PropsTypes) => {
-    const {htmlFor, className, style, children} = props;
-    //style={{ fontSize: '16px', color: 'blue' }}
-    return (
-        <Label htmlFor={htmlFor} className={`fw-bold ${className}`} style={style}>
-          {children}
-        </Label>
-      );
-}
+const LableAtom: React.FC<LabelProps> = ({
+  id,
+  hidden,
+  check,
+  size,
+  children,
+  style,
+  required = false,
+  className,
+}) => {
+  //style={{ fontSize: '16px', color: 'blue' }}
+  return (
+    <Label
+      className={className}
+      id={`${id}-label`}
+      hidden={hidden}
+      check={check}
+      size={size}
+      style={{ ...style }}
+      aria-label={children}
+    >
+      {required ? <span style={{ color: "red" }}>* </span> : null}
+      {children}
+    </Label>
+  );
+};
 
 export default LableAtom;

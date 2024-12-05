@@ -1,17 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import ProjectService from '../../services/api/project.service';
 
-
-type Project = {
-  projectId: number;
-  name: string;
-  createdBy: string;
-  createdDate: string;
-  startDate: string;
-  endDate: string;
-  status: string;
-};
-
   type ProjectsState = {
     projects: any[];
     status: 'idle' | 'loading' | 'failed';
