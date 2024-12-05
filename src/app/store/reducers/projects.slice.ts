@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import globalAppConfig from '../../config/global-app-config';
+import ProjectService from '../../services/api/project.service';
 
 
 type Project = {
@@ -26,10 +25,11 @@ type Project = {
   export const fetchProjects = createAsyncThunk(
     'projects/fetchProjects',
     async (_, thunkAPI) => {
-      console.log("fetch project called")
+      const token = localStorage.getItem('secret');
+      console.log('token->',token)
       try {
-        const response = await axios.get(`${globalAppConfig.baseApiUrl}/projects/paginated`);
-        return response.data.data;
+        const response = await ProjectService.fetchProjects();
+        return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue('Failed to fetch projects');
       }

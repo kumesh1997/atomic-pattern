@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import globalAppConfig from '../../config/global-app-config';
+import UserService from '../../services/api/user.service';
 
 type UserState = {
     isLoggedIn: boolean;
@@ -18,9 +17,8 @@ type UserState = {
     'user/login',
     async (credentials: { email: string; password: string }, thunkAPI) => {
       try {
-        console.log('url ->',globalAppConfig.baseApiUrl)
-        const response = await axios.post(`${globalAppConfig.baseApiUrl}/users/login`, credentials);
-        return response.data.data;
+        const response = await UserService.login(credentials);
+        return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue('Login failed');
       }
