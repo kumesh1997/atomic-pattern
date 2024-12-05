@@ -36,7 +36,7 @@ interface StyleProp {
 const InputPasswordField = (props: propsTypes) => {
     const { children, placeholder, type } = props;
     return (
-      <Input type={type} placeholder={placeholder}>
+      <Input type={type} placeholder={placeholder} {...props}>
       </Input>
     );
   };

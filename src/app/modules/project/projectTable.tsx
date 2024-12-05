@@ -9,7 +9,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Btn from "../../shared-components/atoms/Button/CdButton";
 import Date from "../../shared-components/atoms/Date/CdDate";
 import DataTable from "../../shared-components/organisms/Table/DataTable";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { fetchProjects } from "../../store/reducers/projects.slice";
@@ -17,11 +17,39 @@ import { fetchProjects } from "../../store/reducers/projects.slice";
 const ProjectTable = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const projects = useSelector((state: RootState) => state.projects);
+  const projectsList = useSelector((state: RootState) => state.projects);
+
+  const initialFormData ={
+    projectName: '',
+    status: '',
+    createdBy: '',
+    fromDate: '',
+    toDate: ''
+  }
+
+  const [ formData, setFormData ] = useState(initialFormData);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
 
   useEffect(() => {
-    dispatch(fetchProjects());
-  }, []);
+    dispatch(fetchProjects({
+      projectName: formData.projectName,
+      status: null,
+      createdBy: null,
+      fromDate: null,
+      toDate: null
+    }));
+  }, [formData]);
 
   return (
     <Container className="container vh-100 vw-100 rounded bg-gray">
@@ -38,6 +66,10 @@ const ProjectTable = () => {
         <Row className="flex-sm-column flex-md-row flex-lg-row">
           <Col>
             <CdInputGroup
+              id="projectName"
+              name="projectName"
+              value={formData.projectName}
+              onChange={handleInputChange}
               InputComponent={InputField}
               IconComponent={Icon}
               IconProps={{
@@ -80,13 +112,8 @@ const ProjectTable = () => {
             hover
             responsive
             className="table-responsive "
-            headers={["ID", "NAME", "ROLE"]}
-            data={[
-              [1, "John Doe", "Admin"],
-              [2, "John Doe", "Admin"],
-              [3, "John Doe", "Admin"],
-              [4, "John Doe", "Admin"],
-            ]}
+            headers={["Project ID", "Project Name", "Created By", "Created Date", "Start Date", "End Date", "Status"]}
+            data={projectsList.projects}
           />
         </Row>
       </Row>
