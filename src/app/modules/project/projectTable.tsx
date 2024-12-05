@@ -28,6 +28,7 @@ const ProjectTable = () => {
   }
 
   const [ formData, setFormData ] = useState(initialFormData);
+  const [ statusOptions, setStatusOptions ] = useState<string[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,12 +45,17 @@ const ProjectTable = () => {
   useEffect(() => {
     dispatch(fetchProjects({
       projectName: formData.projectName,
-      status: null,
+      status: formData.status,
       createdBy: null,
       fromDate: null,
       toDate: null
     }));
   }, [formData]);
+
+
+  const setDropDownOptions = () => {
+
+  }
 
   return (
     <Container className="container vh-100 vw-100 rounded bg-gray">
@@ -60,7 +66,7 @@ const ProjectTable = () => {
               children="All Projects"
               className="w-auto me-3 fs-5 fw-semibold"
             />
-            <Typography children="Displaying 145554 projects" className="" />
+            <Typography children={`Displaying ${projectsList.projects.length} projects`} className="" />
           </Col>
         </Row>
         <Row className="flex-sm-column flex-md-row flex-lg-row">
@@ -81,9 +87,13 @@ const ProjectTable = () => {
           </Col>
           <Col>
             <InputWithLabel
+              id="status"
+              name="status"
+              value={formData.status}
+              onSelect={handleInputChange}
               InputComponent={DropDownAtom}
               label="Status"
-              options={["A", "B"]}
+              options={["Completed", "Delay", "In Progress"]}
               labelProps={{style: { float: "left" } }}
             />
           </Col>

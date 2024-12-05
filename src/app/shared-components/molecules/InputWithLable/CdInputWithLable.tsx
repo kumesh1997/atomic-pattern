@@ -20,7 +20,7 @@ interface PropsTypes extends InputProps {
     return (
       <FormGroup>
         <LableAtom htmlFor={id} {...labelProps} children={label} />
-        <InputComponent placeholder={inputPlaceHolder} {...props} options={options? options : ""} />
+        <InputComponent id={id} placeholder={inputPlaceHolder} {...props} options={options? options : ""} />
       </FormGroup>
     );
   };

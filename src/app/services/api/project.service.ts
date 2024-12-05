@@ -12,11 +12,11 @@ interface fetchProjectsArgsTypes {
 class ProjectService {
   static async fetchProjects(filters: fetchProjectsArgsTypes) {
     const { projectName, status, createdBy, fromDate, toDate } = filters;
-    const url = `${globalAppConfig.baseApiUrl}/projects/paginated?page=1&limit=10&projectName=${projectName}`;
+    const url = `${globalAppConfig.baseApiUrl}/projects/paginated?page=1&limit=10&projectName=${projectName}&status=${status}`;
     try {
       const response = await axios.get(url,{
         headers: {
-          Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzMzMzcxOTk4LCJleHAiOjE3MzMzNzU1OTh9._k4kqWvRX-B_8XPnC5_8JtEVQJZ9mYXhsfJS_p1gYpk`,
+          Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzMzMzgxMjYwLCJleHAiOjE3MzMzODQ4NjB9.ihs50SFhNtijDS6sj44mtREmrHhFHYzd4sW8x5ubSnU`,
         },
       });
       return response.data;
