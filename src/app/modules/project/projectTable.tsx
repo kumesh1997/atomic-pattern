@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { fetchProjects } from "../../store/reducers/projects.slice";
+import DateInput from "../../shared-components/atoms/Input/Date/DateInput";
 
 const ProjectTable = () => {
 
@@ -32,6 +33,7 @@ const ProjectTable = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(e.target.value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -46,16 +48,23 @@ const ProjectTable = () => {
     dispatch(fetchProjects({
       projectName: formData.projectName,
       status: formData.status,
-      createdBy: null,
-      fromDate: null,
+      createdBy: formData.createdBy,
+      fromDate: formData.fromDate,
       toDate: null
     }));
+    setDropDownOptions();
   }, [formData]);
 
 
   const setDropDownOptions = () => {
-
+    const options = getDropDownData(projectsList.projects);
   }
+
+  const getDropDownData = (data: any[]) => {
+    if (data.length === 0) return [];
+    const fieldNames = Object.keys(data[0]);
+    return fieldNames;
+  };
 
   return (
     <Container className="container vh-100 vw-100 rounded bg-gray">
@@ -66,7 +75,10 @@ const ProjectTable = () => {
               children="All Projects"
               className="w-auto me-3 fs-5 fw-semibold"
             />
-            <Typography children={`Displaying ${projectsList.projects.length} projects`} className="" />
+            <Typography
+              children={`Displaying ${projectsList.projects.length} projects`}
+              className=""
+            />
           </Col>
         </Row>
         <Row className="flex-sm-column flex-md-row flex-lg-row">
@@ -82,7 +94,7 @@ const ProjectTable = () => {
                 icon: faMagnifyingGlass,
               }}
               label={"Project Name"}
-              labelProps={{style: { float: "left" } }}
+              labelProps={{ style: { float: "left" } }}
             />
           </Col>
           <Col>
@@ -93,21 +105,29 @@ const ProjectTable = () => {
               onSelect={handleInputChange}
               InputComponent={DropDownAtom}
               label="Status"
-              options={["Completed", "Delay", "In Progress"]}
-              labelProps={{style: { float: "left" } }}
+              options={["Completed", "Delay", "In Progress", "Not Started"]}
+              labelProps={{ style: { float: "left" } }}
             />
           </Col>
           <Col>
             <InputWithLabel
+              id="createdBy"
+              name="createdBy"
+              value={formData.createdBy}
+              onSelect={handleInputChange}
               InputComponent={DropDownAtom}
               label="Created By"
-              options={["A", "B"]}
-              labelProps={{style: { float: "left" } }}
+              options={["6", "5", "4"]}
+              labelProps={{ style: { float: "left" } }}
             />
           </Col>
           <Col>
             <InputWithLabel
-              InputComponent={Date}
+              id="fromDate"
+              name="fromDate"
+              value={formData.fromDate}
+              onChange={handleInputChange}
+              InputComponent={DateInput}
               label="Date"
               labelProps={{ className: "", style: { float: "left" } }}
             />
@@ -122,7 +142,15 @@ const ProjectTable = () => {
             hover
             responsive
             className="table-responsive "
-            headers={["Project ID", "Project Name", "Created By", "Created Date", "Start Date", "End Date", "Status"]}
+            headers={[
+              "Project ID",
+              "Project Name",
+              "Created By",
+              "Created Date",
+              "Start Date",
+              "End Date",
+              "Status",
+            ]}
             data={projectsList.projects}
           />
         </Row>
