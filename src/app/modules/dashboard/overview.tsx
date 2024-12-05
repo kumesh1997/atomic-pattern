@@ -4,8 +4,10 @@ import Btn from "../../shared-components/atoms/Button/CdButton";
 import CdCard from "../../shared-components/atoms/Card/CdCard";
 import CdCardBody from "../../shared-components/atoms/Card/CardBody";
 import ChartAtom from "../../shared-components/atoms/Chart/Chart";
+import { useNavigate } from "react-router-dom";
 
 const Overview = () => {
+  const navigate = useNavigate();
   const chartOptions = {
     chart: {
       id: "basic-bar",
@@ -21,6 +23,10 @@ const Overview = () => {
       data: [30, 40, 45, 50, 49, 60, 70],
     },
   ];
+
+  const handleViewAllProjectsOnClick = () => {
+    navigate('/projects');
+  }
 
   return (
     <Container>
@@ -55,6 +61,7 @@ const Overview = () => {
                           color="primary"
                           outline
                           children={"View all Projects"}
+                          onClick={handleViewAllProjectsOnClick}
                         />
                       </Col>
                       <Col>
