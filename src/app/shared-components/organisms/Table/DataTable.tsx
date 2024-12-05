@@ -7,7 +7,7 @@ import TableHeaderRow from "../../molecules/Table/TableHeaderRow/TableHeaderRow"
 
 type DataTableProps = {
     headers: string[];
-    data: any[][];
+    data: any[];
     className?: string;
     style?: CSSProperties;
     bordered?: boolean;
@@ -53,7 +53,7 @@ const DataTable : React.FC<DataTableProps> = ({
               <DataRow
                 key={index}
                 data={rowData}
-                onClick={onRowClick}
+                onClick={()=> onRowClick?.(rowData)}
                 control={control}
               />
             ))}

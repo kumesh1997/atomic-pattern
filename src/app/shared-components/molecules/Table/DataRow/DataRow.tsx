@@ -4,7 +4,7 @@ import TableCell from "../../../atoms/Table/TableCell/CdTableCell";
 
 
 type TableDataRowProps = {
-    data: any[];
+    data: { [key: string]: any };
     className?: string;
     style?: CSSProperties;
     onClick?: (data: any) => void;
@@ -18,8 +18,8 @@ const DataRow : React.FC<TableDataRowProps> = ({ data, className, style, onClick
           style={style}
           onClick={() => onClick && onClick(data)}
         >
-          {data.map((item, index) => (
-            <TableCell key={index} header={item}>{item}</TableCell>
+          {Object.entries(data).map(([key, value], index) => (
+            <TableCell key={index} >{value}</TableCell>
           ))}
         </TableRowAtom>
       );

@@ -18,7 +18,7 @@ const TableCell: React.FC<TableCellProps> = ({
       {children}
     </th>
   ) : (
-    <td className={className} style={style}>
+    <td className={`fs-6 ${className}`} style={style}>
       {children}
     </td>
   );

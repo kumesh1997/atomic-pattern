@@ -13,7 +13,7 @@ type Project = {
 };
 
   type ProjectsState = {
-    projects: Project[];
+    projects: any[];
     status: 'idle' | 'loading' | 'failed';
   };
 
@@ -22,13 +22,19 @@ type Project = {
     status: 'idle',
   };
 
+  interface fetchProjectsArgsTypes {
+    projectName?: string | null;
+    status?: string | null;
+    createdBy?: string | null;
+    fromDate?: string | null;
+    toDate?: string | null;
+  }
+
   export const fetchProjects = createAsyncThunk(
     'projects/fetchProjects',
-    async (_, thunkAPI) => {
-      const token = localStorage.getItem('secret');
-      console.log('token->',token)
+    async ( filters : fetchProjectsArgsTypes , thunkAPI) => {
       try {
-        const response = await ProjectService.fetchProjects();
+        const response = await ProjectService.fetchProjects(filters);
         return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue('Failed to fetch projects');
