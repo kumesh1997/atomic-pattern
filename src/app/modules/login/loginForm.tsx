@@ -14,6 +14,7 @@ import { RootState } from "../../store/store";
 import { login } from "../../store/reducers/users.slice";
 import { AppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const LoginForm = () => {
 
@@ -21,31 +22,42 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.users);
 
-  interface userType{
-    email: string
-    password: string
-  }
-
-  const initialFormData : userType = {
+  const initialFormData = {
     email: '',
     password: ''
-  }
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleLogin = () => {
-    const userEmail = initialFormData.email;
-    const userPassword = initialFormData.password;
-    if( userEmail && userPassword ){
-      console.log('no user data')
+    const { email, password } = formData;
+    if( email && password ){
+      dispatch(login({email: email , password: password }))
+      .unwrap()
+          .then((response) => {
+            if(response){
+              navigate('/dashboard'); // Navigate on successful login
+            }
+          })
+          .catch((error) => {
+            resetForm();
+            console.error('Login failed:', error);
+          });
+    }else{
+      console.log('Please enter both username and password');
     }
-    dispatch(login({email: 'tharindukumesh09@gmail.com' , password: '1234' }))
-    .unwrap()
-        .then(() => {
-          navigate('/dashboard'); // Navigate on successful login
-        })
-        .catch((error) => {
-          console.error('Login failed:', error);
-        });
-   
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormData);
   };
 
   return (
@@ -68,9 +80,10 @@ const LoginForm = () => {
               </Container>
               <Form>
                 <InputWithLabel
-                  id="username"
-                  // value={initialFormData.email}
-                  onChange={(e) => initialFormData.email= e.target.value }
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   InputComponent={InputField}
                   label="User Name"
                   inputProps={{
@@ -84,8 +97,9 @@ const LoginForm = () => {
                 />
                 <InputWithLabel
                   id="password"
-                  // value={initialFormData.password}
-                  onChange={(e) => initialFormData.password= e.target.value }
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange }
                   InputComponent={InputPasswordField}
                   inputPlaceHolder="Enter your Password"
                   label="Password"
