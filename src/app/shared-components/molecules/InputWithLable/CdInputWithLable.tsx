@@ -18,7 +18,7 @@ interface PropsTypes extends InputProps {
 
   const InputWithLabel: React.FC<PropsTypes> = ({ label, InputComponent, labelProps,inputPlaceHolder, id, IconComponent, options, ...props }) => {
     return (
-      <FormGroup>
+      <FormGroup >
         <LableAtom id={''} {...labelProps} children={label? label : ""} />
         <InputComponent id={id} placeholder={inputPlaceHolder} {...props} options={options? options : ""} />
       </FormGroup>

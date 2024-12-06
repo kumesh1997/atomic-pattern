@@ -52,6 +52,12 @@ const DateInput: React.FC<DateInputProps> = ({
     onChange(syntheticEvent); // Pass the updated value
   };
 
+  const handleDateClick = () => {
+    if (!disabled && !readonly) {
+      document.getElementById(id)?.focus();
+    }
+  };
+
   return (
     <FormGroup className="form-group">
       {label && (
@@ -60,13 +66,24 @@ const DateInput: React.FC<DateInputProps> = ({
           id={id}
         />
       )}
+      <div
+        className="input-wrapper"
+        onClick={handleDateClick}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          cursor: disabled || readonly ? "not-allowed" : "pointer",
+        }}
+      >
+          {/* FontAwesome Calendar Icon */}
+          <i className="fas fa-calendar-alt" style={{ marginRight: "8px" }}></i>
       <Input
         aria-label={id}
         id={id}
         valid={valid}
         invalid={invalid}
         className={className}
-        placeholder={placeHolder}
+         placeholder={placeHolder || "Select Date"}
         onChange={handleChange}
         onFocus={onFocus}
         value={value}
@@ -79,6 +96,7 @@ const DateInput: React.FC<DateInputProps> = ({
         disabled={disabled}
         readOnly={readonly}
       />
+      </div>
     </FormGroup>
   );
 };
