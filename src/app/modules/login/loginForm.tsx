@@ -15,19 +15,35 @@ import { login } from "../../store/reducers/users.slice";
 import { AppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import * as z from "zod";
+
+// Define Zod schema for form validation
+const loginSchema = z.object({
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .nonempty("Email is required"),
+  password: z
+    .string()
+    .min(4, "Password must be at least 4 characters")
+    .nonempty("Password is required"),
+});
 
 const LoginForm = () => {
-
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.users);
 
   const initialFormData = {
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [formErrors, setFormErrors] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,21 +54,40 @@ const LoginForm = () => {
   };
 
   const handleLogin = () => {
+    // Validate form data using Zod
+    const validationResult = loginSchema.safeParse(formData);
+
+    if (!validationResult.success) {
+      // If validation fails, set errors
+      const errors: { email?: string; password?: string } = {};
+      validationResult.error.errors.forEach((err) => {
+        if (err.path[0] === "email") {
+          errors.email = err.message;
+        }
+        if (err.path[0] === "password") {
+          errors.password = err.message;
+        }
+      });
+      setFormErrors(errors);
+      return; // Exit the function if validation fails
+    }
+
+    // Proceed with login if validation passes
     const { email, password } = formData;
-    if( email && password ){
-      dispatch(login({email: email , password: password }))
-      .unwrap()
-          .then((response) => {
-            if(response){
-              navigate('/dashboard'); // Navigate on successful login
-            }
-          })
-          .catch((error) => {
-            resetForm();
-            console.error('Login failed:', error);
-          });
-    }else{
-      console.log('Please enter both username and password');
+    if (email && password) {
+      dispatch(login({ email: email, password: password }))
+        .unwrap()
+        .then((response) => {
+          if (response) {
+            navigate("/dashboard"); // Navigate on successful login
+          }
+        })
+        .catch((error) => {
+          resetForm();
+          console.error("Login failed:", error);
+        });
+    } else {
+      console.log("Please enter both username and password");
     }
   };
 
@@ -62,10 +97,13 @@ const LoginForm = () => {
 
   return (
     <Row>
-      <Col md style={{
-        backgroundImage: "url('/assets/images/login_bg.jpg')",
-      }}
-      className="container-fluid bg-cover bg-center min-vh-100 no-repeat-bg">
+      <Col
+        md
+        style={{
+          backgroundImage: "url('/assets/images/login_bg.jpg')",
+        }}
+        className="container-fluid bg-cover bg-center min-vh-100 no-repeat-bg"
+      >
         <CdCard className="rounded-3 col-lg-4 col-md-6 col-sm-6 mx-auto mt-5 ">
           <CdCardBody>
             <Row>
@@ -95,11 +133,18 @@ const LoginForm = () => {
                     style: { color: "gray", float: "left" },
                   }}
                 />
+                {formErrors.email && (
+                  <Typography
+                    children={formErrors.email}
+                    className="text-danger mt-1"
+                  />
+                )}
+
                 <InputWithLabel
                   id="password"
                   name="password"
                   value={formData.password}
-                  onChange={handleInputChange }
+                  onChange={handleInputChange}
                   InputComponent={InputPasswordField}
                   inputPlaceHolder="Enter your Password"
                   label="Password"
@@ -109,6 +154,13 @@ const LoginForm = () => {
                     style: { color: "gray", float: "left" },
                   }}
                 />
+
+                {formErrors.password && (
+                  <Typography
+                    children={formErrors.password}
+                    className="text-danger mt-1"
+                  />
+                )}
                 <Btn
                   children={"Login"}
                   style={{ width: 100 }}
