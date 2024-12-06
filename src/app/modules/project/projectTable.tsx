@@ -33,7 +33,6 @@ const ProjectTable = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(e.target.value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -121,7 +120,7 @@ const ProjectTable = () => {
               labelProps={{ style: { float: "left" } }}
             />
           </Col>
-          <Col>
+          <Col >
             <InputWithLabel
               id="fromDate"
               name="fromDate"
@@ -130,6 +129,7 @@ const ProjectTable = () => {
               InputComponent={DateInput}
               label="Date"
               labelProps={{ className: "", style: { float: "left" } }}
+              
             />
           </Col>
           <Col className="d-flex align-items-center justify-content-end">

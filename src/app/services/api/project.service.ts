@@ -14,7 +14,7 @@ interface fetchProjectsArgsTypes {
 class ProjectService {
   static async fetchProjects(filters: fetchProjectsArgsTypes) {
     const { projectName, status, createdBy, fromDate, toDate } = filters;
-    const url = `${globalAppConfig.baseApiUrl}/projects/paginated?page=1&limit=10&projectName=${projectName}&status=${status}&createdBy=${createdBy}`;
+    const url = `${globalAppConfig.baseApiUrl}/projects/paginated?page=1&limit=10&projectName=${projectName}&status=${status}&createdBy=${createdBy}&dateFrom=${fromDate}`;
     try {
       const response = await axios.get(url,{
         headers: {
