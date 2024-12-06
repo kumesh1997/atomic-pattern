@@ -154,7 +154,7 @@ const ProjectTable = () => {
           />
         </Row>
       </Row>
-      <Row className="d-flex justify-content-end">
+      {/* <Row className="d-flex justify-content-end">
         <Col className="col-lg-4 col-md-6 col-sm-6">
         <PaginationComponent
           currentPage={page}
@@ -164,7 +164,15 @@ const ProjectTable = () => {
         />
         </Col>
         
-      </Row>
+      </Row> */}
+      <Col>
+      <PaginationComponent
+          currentPage={page}
+          totalCount={projectsList.totalCount}
+          pageSize={limit}
+          onPageChange={(newPage: number) => setPage(newPage)}
+        />
+      </Col>
     </Container>
   );
 };
