@@ -8,6 +8,7 @@ export const dashboardRoutes = {
         {
           path: "",
           element: <Overview />,
+          protected: true,
         }
       ],
     },

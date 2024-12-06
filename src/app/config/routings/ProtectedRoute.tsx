@@ -1,29 +1,19 @@
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-// import { useAuth } from "@store/context/AuthContext";
-// import { hasRequiredRole } from "@core/utils/authUtils";
-// import { authDatService } from "@services/data/AuthDataService";
+import { RootState } from "../../store/store";
 
-const ProtectedRoute = ({ auth = [], children }: any) => {
-  // const { userRole }: any = useAuth();
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const user = useSelector((state: RootState) => state.users);
 
   const location = useLocation();
-  const isIgnoreUrl =
-    location.pathname.includes("/auth") ||
-    location.pathname.includes("/register");
+  const isIgnoreUrl = location.pathname.includes("/auth");
 
-  if (
-    !isIgnoreUrl 
-    // &&
-    // (!hasRequiredRole(userRole, auth) || !authDatService.isValidToken())
-  ) {
-    return <Navigate to="/" />;
+  if (!isIgnoreUrl && !user.isLoggedIn) {
+    return <Navigate to="/auth/sign-in" />;
   }
 
-  // if (!hasRequiredRole(userRole, auth)) {
-  //   return <Navigate to="/" />;
-  // }
-
-  return children ?? <Outlet />;
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;

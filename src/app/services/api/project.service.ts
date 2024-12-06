@@ -1,8 +1,6 @@
 import axios from 'axios';
 import globalAppConfig from '../../config/global-app-config';
 
-const token = localStorage.getItem('secret');
-
 interface fetchProjectsArgsTypes {
   projectName?: string | null;
   status?: string | null;
@@ -13,6 +11,7 @@ interface fetchProjectsArgsTypes {
 
 class ProjectService {
   static async fetchProjects(filters: fetchProjectsArgsTypes) {
+    const token = localStorage.getItem('secret');
     const { projectName, status, createdBy, fromDate, toDate } = filters;
     const url = `${globalAppConfig.baseApiUrl}/projects/paginated?page=1&limit=10&projectName=${projectName}&status=${status}&createdBy=${createdBy}&dateFrom=${fromDate}`;
     try {

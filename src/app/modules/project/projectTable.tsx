@@ -52,7 +52,7 @@ const ProjectTable = () => {
       toDate: null
     }));
     setDropDownOptions();
-  }, [formData]);
+  }, [formData, projectsList.projects]);
 
 
   const setDropDownOptions = () => {
@@ -121,15 +121,11 @@ const ProjectTable = () => {
             />
           </Col>
           <Col >
-            <InputWithLabel
+            <DateInput
               id="fromDate"
-              name="fromDate"
               value={formData.fromDate}
               onChange={handleInputChange}
-              InputComponent={DateInput}
               label="Date"
-              labelProps={{ className: "", style: { float: "left" } }}
-              
             />
           </Col>
           <Col className="d-flex align-items-center justify-content-end">

@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { login } from "../../store/reducers/users.slice";
 import { AppDispatch } from "../../store/store";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as z from "zod";
 import { toast } from "react-toastify";
@@ -31,9 +31,10 @@ const loginSchema = z.object({
 });
 
 const LoginForm = () => {
+  const history = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const user = useSelector((state: RootState) => state.users);
 
   const initialFormData = {
     email: "",
@@ -81,7 +82,7 @@ const LoginForm = () => {
         .then((response) => {
           if (response) {
             toast.success("User Login successfull");
-            navigate("/dashboard"); // Navigate on successful login
+            navigate("/dashboard", { replace: true }); // Navigate on successful login
           }
         })
         .catch((error) => {
