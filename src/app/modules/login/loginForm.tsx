@@ -16,6 +16,7 @@ import { AppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import * as z from "zod";
+import { toast } from "react-toastify";
 
 // Define Zod schema for form validation
 const loginSchema = z.object({
@@ -79,10 +80,12 @@ const LoginForm = () => {
         .unwrap()
         .then((response) => {
           if (response) {
+            toast.success("User Login successfull");
             navigate("/dashboard"); // Navigate on successful login
           }
         })
         .catch((error) => {
+          toast.error("Login failed! ");
           resetForm();
           console.error("Login failed:", error);
         });

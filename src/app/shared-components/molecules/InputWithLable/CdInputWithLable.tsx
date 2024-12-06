@@ -4,7 +4,7 @@ import { InputProps } from 'reactstrap';
 
 
 interface PropsTypes extends InputProps {
-    label: string;
+    label?: string;
     InputComponent: React.FC<any>;
     IconComponent?: React.FC<any>;
     id?: string;
@@ -19,7 +19,7 @@ interface PropsTypes extends InputProps {
   const InputWithLabel: React.FC<PropsTypes> = ({ label, InputComponent, labelProps,inputPlaceHolder, id, IconComponent, options, ...props }) => {
     return (
       <FormGroup>
-        <LableAtom id={''} {...labelProps} children={label} />
+        <LableAtom id={''} {...labelProps} children={label? label : ""} />
         <InputComponent id={id} placeholder={inputPlaceHolder} {...props} options={options? options : ""} />
       </FormGroup>
     );

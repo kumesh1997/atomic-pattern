@@ -42,10 +42,14 @@ const DateInput: React.FC<DateInputProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const date = e.target.value;
-    onChange({
-      name: id,
-      value: date
-    }); // Pass the updated value
+
+    const syntheticEvent = {
+      target: {
+        name:  id,
+        value: date,
+      }
+    };
+    onChange(syntheticEvent); // Pass the updated value
   };
 
   return (

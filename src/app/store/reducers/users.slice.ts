@@ -18,6 +18,7 @@ type UserState = {
     async (credentials: { email: string; password: string }, thunkAPI) => {
       try {
         const response = await UserService.login(credentials);
+        localStorage.setItem('secret', response.data.token);
         return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue('Login failed');
