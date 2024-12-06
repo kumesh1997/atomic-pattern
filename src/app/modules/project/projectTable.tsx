@@ -159,7 +159,6 @@ const ProjectTable = () => {
         totalCount={projectsList.totalCount}
         pageSize={limit}
         onPageChange={(newPage: number) => setPage(newPage)}
-        onLimitChange={(newLimit: number) => setLimit(newLimit)}
       />
     </Container>
   );
