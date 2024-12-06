@@ -7,29 +7,29 @@ import InputField from "../../shared-components/atoms/Input/CdInputField";
 import Icon from "../../shared-components/atoms/Icon/CdIcon";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Btn from "../../shared-components/atoms/Button/CdButton";
-import Date from "../../shared-components/atoms/Date/CdDate";
 import DataTable from "../../shared-components/organisms/Table/DataTable";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { fetchProjects } from "../../store/reducers/projects.slice";
 import DateInput from "../../shared-components/atoms/Input/Date/DateInput";
+import PaginationComponent from "../../shared-components/atoms/Pagination/pagination";
 
 const ProjectTable = () => {
-
   const dispatch = useDispatch<AppDispatch>();
   const projectsList = useSelector((state: RootState) => state.projects);
 
-  const initialFormData ={
-    projectName: '',
-    status: '',
-    createdBy: '',
-    fromDate: '',
-    toDate: ''
-  }
+  const initialFormData = {
+    projectName: "",
+    status: "",
+    createdBy: "",
+    fromDate: "",
+    toDate: "",
+  };
 
-  const [ formData, setFormData ] = useState(initialFormData);
-  const [ statusOptions, setStatusOptions ] = useState<string[]>([]);
+  const [formData, setFormData] = useState(initialFormData);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,20 +44,23 @@ const ProjectTable = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchProjects({
-      projectName: formData.projectName,
-      status: formData.status,
-      createdBy: formData.createdBy,
-      fromDate: formData.fromDate,
-      toDate: null
-    }));
+    dispatch(
+      fetchProjects({
+        projectName: formData.projectName,
+        status: formData.status,
+        createdBy: formData.createdBy,
+        fromDate: formData.fromDate,
+        toDate: null,
+        page,
+        limit,
+      })
+    );
     setDropDownOptions();
-  }, [formData, projectsList.projects]);
-
+  }, [page, limit, formData, projectsList.projects]);
 
   const setDropDownOptions = () => {
     const options = getDropDownData(projectsList.projects);
-  }
+  };
 
   const getDropDownData = (data: any[]) => {
     if (data.length === 0) return [];
@@ -120,7 +123,7 @@ const ProjectTable = () => {
               labelProps={{ style: { float: "left" } }}
             />
           </Col>
-          <Col >
+          <Col>
             <DateInput
               id="fromDate"
               value={formData.fromDate}
@@ -151,6 +154,13 @@ const ProjectTable = () => {
           />
         </Row>
       </Row>
+      <PaginationComponent
+        currentPage={page}
+        totalCount={projectsList.totalCount}
+        pageSize={limit}
+        onPageChange={(newPage: number) => setPage(newPage)}
+        onLimitChange={(newLimit: number) => setLimit(newLimit)}
+      />
     </Container>
   );
 };
