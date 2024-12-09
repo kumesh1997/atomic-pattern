@@ -56,11 +56,11 @@ const LoginForm = () => {
   };
 
   const handleLogin = () => {
-    // Validate form data using Zod
+
     const validationResult = loginSchema.safeParse(formData);
 
     if (!validationResult.success) {
-      // If validation fails, set errors
+
       const errors: { email?: string; password?: string } = {};
       validationResult.error.errors.forEach((err) => {
         if (err.path[0] === "email") {
@@ -71,10 +71,9 @@ const LoginForm = () => {
         }
       });
       setFormErrors(errors);
-      return; // Exit the function if validation fails
+      return;
     }
 
-    // Proceed with login if validation passes
     const { email, password } = formData;
     if (email && password) {
       dispatch(login({ email: email, password: password }))
@@ -82,7 +81,7 @@ const LoginForm = () => {
         .then((response) => {
           if (response) {
             toast.success("User Login successfull");
-            navigate("/dashboard", { replace: true }); // Navigate on successful login
+            navigate("/dashboard", { replace: true });
           }
         })
         .catch((error) => {

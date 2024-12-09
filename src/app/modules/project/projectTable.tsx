@@ -107,7 +107,7 @@ const ProjectTable = () => {
               onSelect={handleInputChange}
               InputComponent={DropDownAtom}
               label="Status"
-              options={["Completed", "Delay", "In Progress", "Not Started"]}
+              options={["Completed", "Delayed", "In Progress", "Not Started"]}
               labelProps={{ style: { float: "left" } }}
             />
           </Col>
@@ -119,7 +119,7 @@ const ProjectTable = () => {
               onSelect={handleInputChange}
               InputComponent={DropDownAtom}
               label="Created By"
-              options={["6", "5", "4"]}
+              options={["User 1", "User 2", "User 3"]}
               labelProps={{ style: { float: "left" } }}
             />
           </Col>
@@ -154,17 +154,6 @@ const ProjectTable = () => {
           />
         </Row>
       </Row>
-      {/* <Row className="d-flex justify-content-end">
-        <Col className="col-lg-4 col-md-6 col-sm-6">
-        <PaginationComponent
-          currentPage={page}
-          totalCount={projectsList.totalCount}
-          pageSize={limit}
-          onPageChange={(newPage: number) => setPage(newPage)}
-        />
-        </Col>
-        
-      </Row> */}
       <Col>
       <PaginationComponent
           currentPage={page}

@@ -8,6 +8,7 @@ export const authRoutes = {
           {
             path: "sign-in",
             element: <LoginForm />,
+            protected: false
           }
         ],
       },

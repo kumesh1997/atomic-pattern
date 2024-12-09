@@ -16,7 +16,6 @@ interface propsTypes extends ButtonProps {
   id?: string;
   type?: 'submit' | 'reset' | 'button' | undefined;
   outline?:boolean | undefined;
-  size?:string
   style?:CSSModule | StyleProp
   active?:boolean
   disabled?:boolean
