@@ -8,6 +8,7 @@ export const projectsRoutes = {
           {
             path: "",
             element: <ProjectTable />,
+            protected: true
           }
         ],
       },
